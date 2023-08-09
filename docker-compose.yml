@@ -1,0 +1,13 @@
+version: '3'
+services:
+  url-shortener:
+    image: fseda/url-shortener:v1.0
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "8080:8080"
+    volumes:
+      # ./go.mod
+      - .:/src/app
