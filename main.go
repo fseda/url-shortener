@@ -4,9 +4,12 @@ import (
 	"log"
 	"net/http"
 	Handlers "github.com/fseda/url-shortener/src/handlers"
+	Config "github.com/fseda/url-shortener/src/config"
 )
 
 func main() {
+	Config.InitializeDB()
+
 	http.HandleFunc("/", Handlers.IndexHandler)
 	http.HandleFunc("/view/", Handlers.ViewHandler)
 
