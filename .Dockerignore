@@ -1,0 +1,10 @@
+# Exclude version control directories and files
+.git/
+.gitignore
+
+# Exclude Docker files (except Dockerfile)
+Dockerfile*
+.dockerignore
+
+tmp/
+.env
