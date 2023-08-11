@@ -2,7 +2,7 @@
 
 A URL shortener built using Go for the server, and HTML/CSS for the user interface. This project allows you to create shortened versions of long URLs, making them more convenient to share and manage.
 
-![Screenshot](screenshot.png)
+<!-- ![Screenshot](screenshot.png) -->
 
 ## Table of Contents
 
