@@ -2,13 +2,15 @@ package config
 
 import (
 	"database/sql"
-	// "fmt"
 
 	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var DB *sql.DB
+var (
+	DB *sql.DB
+	DB_PATH = "src/db/db.sqlite"
+)
 
 func Config(key string) (string, error) {
 	err := godotenv.Load(".env")
@@ -21,9 +23,8 @@ func Config(key string) (string, error) {
 
 func InitializeDB() {
 	var err error
-	dbPath, _ := Config("DB_PATH")
 
-	DB, err = sql.Open("sqlite3", dbPath)
+	DB, err = sql.Open("sqlite3", DB_PATH)
 	if err != nil {
 		panic(err)
 	}
@@ -35,7 +36,7 @@ func InitializeDB() {
 		url TEXT
 	)
 	`
-
+	
 	_, err = DB.Exec(createTableSQL)
 	if err != nil {
 		panic(err)
