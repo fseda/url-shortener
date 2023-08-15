@@ -2,6 +2,7 @@ package services
 
 import (
 	"database/sql"
+	"fmt"
 	"strconv"
 
 	"github.com/fseda/url-shortener/src/config"
@@ -53,25 +54,21 @@ func (us *UrlService) urlExists(url string) bool {
 }
 
 func (us *UrlService) getUrlId(url string) (int64, error) {
-	query := "SELECT * FROM urls WHERE url = ?"
-	result, err := config.DB.Exec(query, url)
-	if err != nil {
-		return 0, err
-	}
+	query := "SELECT id FROM urls WHERE url = ?"
+	row := config.DB.QueryRow(query, url)
 
-	id, err := result.LastInsertId()
-	if err != nil {
-		return 0, err
-	}
-
-	return id, nil
+	var id int
+	err := row.Scan(&id)
+	return int64(id), err
 }
 
 func (us *UrlService) ShortenUrl(url string, baseUrl string) (string, error) {
 	var id int64
 	var err error
 
-	if urlExists := us.urlExists(url); urlExists {
+	urlExists := us.urlExists(url)
+	fmt.Println(urlExists)
+	if urlExists {
 		id, err = us.getUrlId(url)
 		if err != nil {
 			return "", err
