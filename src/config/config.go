@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	DB *sql.DB
+	DB      *sql.DB
 	DB_PATH = "src/db/db.sqlite"
 )
 
@@ -21,14 +21,13 @@ func Config(key string) (string, error) {
 	return values[key], err
 }
 
-func InitializeDB() {
+func InitializeDB() error {
 	var err error
 
 	DB, err = sql.Open("sqlite3", DB_PATH)
 	if err != nil {
-		panic(err)
+		return err
 	}
-	defer DB.Close()
 
 	createTableSQL := `
 	CREATE TABLE IF NOT EXISTS urls (
@@ -36,10 +35,11 @@ func InitializeDB() {
 		url TEXT
 	)
 	`
-	
+
 	_, err = DB.Exec(createTableSQL)
 	if err != nil {
-		panic(err)
+		return err
 	}
-	defer DB.Close()
+
+	return nil
 }
