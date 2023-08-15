@@ -28,7 +28,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	} 
 	
 	if !isInt(&id) {
-		ErrorHandler(w, r)
+		http.Redirect(w, r, "/error", http.StatusSeeOther)
 		return
 	}
 
@@ -36,7 +36,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	intId, _ := strconv.Atoi(id)
 	url, err := us.GetUrl(intId)
 	if err != nil {
-		ErrorHandler(w, r)
+		http.Redirect(w, r, "/error", http.StatusSeeOther)
 		return
 	}
 
@@ -54,12 +54,13 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 
 	url := r.URL.Query().Get("url")
 	if url == "" {
-		http.Redirect(w, r, "/", http.StatusBadRequest)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
 	}
 	baseUrl := getBaseURL(r)
 	shortenedUrl, err := us.ShortenUrl(url, baseUrl)
 	if err != nil {
-		ErrorHandler(w, r)
+		http.Redirect(w, r, "/error", http.StatusSeeOther)
 	}
 
 	templates.RenderTemplate(w, "view", models.Url{ShortenedUrl: shortenedUrl})
