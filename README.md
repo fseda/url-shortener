@@ -1,8 +1,8 @@
 # URL Shortener Project
 
-A URL shortener built using Go for the server, and HTML/CSS for the user interface. This project allows you to create shortened versions of long URLs, making them more convenient to share and manage.
+A URL shortener built using Go for the server, and HTML/CSS for the user interface. This project allows you to create shortened versions of long URLs, making them more convenient to share and manage. [Check It Out Live!](https://short-url-08gu.onrender.com/)
 
-<!-- ![Screenshot](screenshot.png) -->
+ ![Screenshot](/static/imgs/screenshot.png) 
 
 ## Table of Contents
 
@@ -64,6 +64,7 @@ Follow these steps to get the URL shortener up and running on your local machine
 Requires "docker-compose" to work
 
 1. Build and Run from Docker Compose
+   
    ```bash
    $ docker-compose up --build
    ```
