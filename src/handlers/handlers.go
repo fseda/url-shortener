@@ -15,16 +15,25 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 	if id == "" {
-		fmt.Println("id == \"\"")
-		templates.RenderTemplate(w, "index", models.Url{})
-		// handleError(w, custom_errors.ErrBadRequest)
+		url := r.FormValue("url")
+		if url == "" {
+			templates.RenderTemplate(w, "index", models.Url{})
+			return
+		}
+
+		baseUrl := getBaseURL(r)
+		shortenedUrl, err := us.ShortenUrl(url, baseUrl)
+		if err != nil {
+			ErrorHandler(w, r)
+		}
+
+		templates.RenderTemplate(w, "index", models.Url{ShortenedUrl: shortenedUrl})
 		return
 	}
 
 	if !isInt(&id) {
 		fmt.Println("id is not int")
-		http.Redirect(w, r, "/error", http.StatusNotFound)
-		// handleError(w, custom_errors.ErrBadRequest)
+		ErrorHandler(w, r)
 		return
 	}
 
@@ -32,8 +41,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	url, err := us.GetUrl(intId)
 	if err != nil {
 		fmt.Println("url not found")
-		http.Redirect(w, r, "/error", http.StatusNotFound)
-		// handleError(w, err)
+		ErrorHandler(w, r)
 		return
 	}
 
@@ -45,20 +53,6 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
-
-	// var shortUrl string;
-	// if url == "" {
-	// 	shortUrl = ""
-	// } else {
-	// 	shortUrl = "bit.ly/" + ""
-	// }
-
-	// newUrl := Url{
-	// 	ID: 1,
-	// 	ShortenedUrl: shortUrl,
-	// 	OriginalUrl: url,
-	// }
-
 	templates.RenderTemplate(w, "view", models.Url{})
 }
 
@@ -73,25 +67,15 @@ func MakeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
 	}
 }
 
-/* func handleError(w http.ResponseWriter, err error) {
-	switch err {
-	case custom_errors.ErrNotFound, sql.ErrNoRows:
-		http.Error(w, "Not Found", http.StatusNotFound)
-
-	case custom_errors.ErrBadRequest:
-		w.WriteHeader(http.StatusOK)
-		// http.Error(w, "Bad Request", http.StatusBadRequest)
-
-	case custom_errors.ErrUnauthorized:
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-
-	default:
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
-}
-*/
-
 func isInt(value *string) bool {
 	_, err := strconv.Atoi(*value)
 	return err == nil
+}
+
+func getBaseURL(r *http.Request) string {
+	proto := "http"
+	if r.TLS != nil {
+		proto = "https"
+	}
+	return fmt.Sprintf("%s://%s", proto, r.Host)
 }
