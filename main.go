@@ -16,9 +16,9 @@ func main() {
 	}
 	defer config.DB.Close()
 
-	http.HandleFunc("/", handlers.MakeHandler(handlers.IndexHandler))
-	http.HandleFunc("/error", handlers.MakeHandler(handlers.ErrorHandler))
-	// http.HandleFunc("/view/", Handlers.ViewHandler)
+	http.HandleFunc("/", handlers.IndexHandler)
+	http.HandleFunc("/error", handlers.ErrorHandler)
+	http.HandleFunc("/view/", handlers.ViewHandler)
 
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("static/styles/"))))
 	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("static/scripts/"))))
