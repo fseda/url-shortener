@@ -67,7 +67,6 @@ func (us *UrlService) ShortenUrl(url string, baseUrl string) (string, error) {
 	var err error
 
 	urlExists := us.urlExists(url)
-	fmt.Println(urlExists)
 	if urlExists {
 		id, err = us.getUrlId(url)
 		if err != nil {
