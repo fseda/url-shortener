@@ -13,6 +13,7 @@ A URL shortener built using Go for the server, and HTML/CSS for the user interfa
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation and Running](#installation-and-running)
+    - [Run with Docker](#run-with-docker)
 
 ## Features
 
@@ -57,3 +58,12 @@ Follow these steps to get the URL shortener up and running on your local machine
     $ go build
     $ ./url-shortener
     ```
+
+### Run with Docker
+
+Requires "docker-compose" to work
+
+1. Build and Run from Docker Compose
+   ```bash
+   $ docker-compose up --build
+   ```
