@@ -21,6 +21,7 @@
       </form>
       <br>
 
+      {{if .ShortenedUrl}}
       <div class="result">
         <p class="shortened-url">
           Shortened URL 123: <a href="{{ .ShortenedUrl }}">{{ .ShortenedUrl }}</a>
@@ -31,6 +32,7 @@
           </button>
         </p>
       </div>
+      {{end}}
       
       <script src="/scripts/main.js"></script>
     </div>
