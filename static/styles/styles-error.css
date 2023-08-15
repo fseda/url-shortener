@@ -32,3 +32,28 @@ body {
   margin-top: 10px;
   font-size: 18px;
 }
+
+/* Style the back button */
+.back-button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Style the back button */
+.back-button {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  color: #333; /* Dark gray color */
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Change button color on hover */
+.back-button:hover {
+  background-color: #e0e0e0;
+}
