@@ -6,6 +6,40 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 600px) {
+  /* Adjust font size for smaller screens */
+  h1 {
+    font-size: 28px;
+  }
+
+  form {
+    max-width: 100%; /* Allow form to take full width */
+  }
+
+  /* Adjust padding and font size for smaller screens */
+  input[type="url"] {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  /* Adjust padding and font size for smaller screens */
+  input[type="submit"] {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  /* Adjust padding and font size for smaller screens */
+  .shortened-url {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* Adjust padding for smaller screens */
+  .original-url {
+    margin-top: 5px;
+  }
+}
+
 h1 {
   font-size: 36px;
   color: #333;

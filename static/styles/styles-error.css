@@ -57,3 +57,23 @@ body {
 .back-button:hover {
   background-color: #e0e0e0;
 }
+
+/* Add media query for smaller screens */
+@media (max-width: 600px) {
+  .error-container {
+    margin: 20% auto; /* Adjust margin for smaller screens */
+  }
+
+  .error-header {
+    font-size: 20px; /* Adjust font size for smaller screens */
+  }
+
+  .error-message {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
+
+  .back-button {
+    font-size: 12px; /* Adjust font size for smaller screens */
+    padding: 4px 8px; /* Adjust padding for smaller screens */
+  }
+}
