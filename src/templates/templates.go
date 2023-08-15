@@ -10,7 +10,7 @@ import (
 
 var (
 	tmplPath  = "./static/templates/"
-	templates = template.Must(template.ParseFiles(tmplPath+"index.html", tmplPath+"error.html"))
+	templates = template.Must(template.ParseFiles(tmplPath+"index.html", tmplPath+"error.html", tmplPath+"view.html"))
 	ValidPath = regexp.MustCompile("^/(|error)/([a-zA-Z0-9]+)$")
 )
 
