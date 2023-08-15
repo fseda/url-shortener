@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -8,6 +9,12 @@ import (
 	"github.com/fseda/url-shortener/src/models"
 	"github.com/fseda/url-shortener/src/services"
 	"github.com/fseda/url-shortener/src/templates"
+)
+
+type contextKey string
+
+const (
+	urlKey contextKey = "originalUrl"
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
@@ -22,11 +29,11 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Show shortened url
-		redirectString := fmt.Sprintf("/view?url=%s", url)
-		http.Redirect(w, r, redirectString, http.StatusSeeOther)
+		ctx := context.WithValue(r.Context(), urlKey, url)
+		ViewHandler(w, r.WithContext(ctx))
 		return
-	} 
-	
+	}
+
 	if !isInt(&id) {
 		http.Redirect(w, r, "/error", http.StatusSeeOther)
 		return
@@ -51,8 +58,8 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	us := services.NewUrlService()
 
-
-	url := r.URL.Query().Get("url")
+	url, _ := r.Context().Value(urlKey).(string)
+	fmt.Println(url)
 	if url == "" {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
@@ -64,7 +71,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	templates.RenderTemplate(w, "view", models.Url{
-		OriginalUrl: url,
+		OriginalUrl:  url,
 		ShortenedUrl: shortenedUrl,
 	})
 }
