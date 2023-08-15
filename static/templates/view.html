@@ -21,6 +21,20 @@
           
       </form>
       <br>
+
+      {{if .ShortenedUrl}}
+      <div class="result">
+        <p class="shortened-url">
+          Shortened URL: <a href="{{ .ShortenedUrl }}">{{ .ShortenedUrl }}</a>
+    
+          <button class="copy-button" onclick="copyToClipboard('{{ .ShortenedUrl }}')">
+            <span class="copy-icon">📋</span>
+            <span class="copy-subtitle">Copy to Clipboard</span>
+          </button>
+        </p>
+      </div>
+      {{end}}
+      
     </div>
 </body>
 </html>
