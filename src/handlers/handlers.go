@@ -59,7 +59,6 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	us := services.NewUrlService()
 
 	url, _ := r.Context().Value(urlKey).(string)
-	fmt.Println(url)
 	if url == "" {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return

@@ -94,24 +94,6 @@ input[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-/* .shortened-url {
-  margin-top: 20px;
-  background-color: #f9f9f9;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.shortened-url a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.shortened-url a:hover {
-  text-decoration: underline;
-} */
-
 .center-content {
   display: flex;
   flex-direction: column;
@@ -121,7 +103,15 @@ input[type="submit"]:hover {
 }
 
 /* Add styling for the original URL paragraph */
+.original-url-container {
+  max-width: 400px;
+  margin-top: 10px; /* Adjust margin as needed */
+}
+
 .original-url {
+  overflow: hidden;
+  text-overflow: ellipsis; /* Show ellipsis (...) when the text overflows */
+  white-space: nowrap;
   color: #666; /* Light gray color */
   margin-top: 10px;
   font-size: 14px;
