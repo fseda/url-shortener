@@ -1,12 +1,10 @@
 package handlers
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
 	"strconv"
 
-	custom_errors "github.com/fseda/url-shortener/src/errors"
 	"github.com/fseda/url-shortener/src/models"
 	"github.com/fseda/url-shortener/src/services"
 	"github.com/fseda/url-shortener/src/templates"
@@ -25,7 +23,8 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 	if !isInt(&id) {
 		fmt.Println("id is not int")
-		handleError(w, custom_errors.ErrBadRequest)
+		http.Redirect(w, r, "/error", http.StatusNotFound)
+		// handleError(w, custom_errors.ErrBadRequest)
 		return
 	}
 
@@ -63,7 +62,18 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	templates.RenderTemplate(w, "view", models.Url{})
 }
 
-func handleError(w http.ResponseWriter, err error) {
+func MakeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		m := templates.ValidPath.FindStringSubmatch(r.URL.Path)
+		if m == nil {
+			http.NotFound(w, r)
+			return
+		}
+		fn(w, r)
+	}
+}
+
+/* func handleError(w http.ResponseWriter, err error) {
 	switch err {
 	case custom_errors.ErrNotFound, sql.ErrNoRows:
 		http.Error(w, "Not Found", http.StatusNotFound)
@@ -79,6 +89,7 @@ func handleError(w http.ResponseWriter, err error) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
+*/
 
 func isInt(value *string) bool {
 	_, err := strconv.Atoi(*value)
