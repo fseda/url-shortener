@@ -2,7 +2,6 @@ package services
 
 import (
 	"database/sql"
-	"fmt"
 	"strconv"
 
 	"github.com/fseda/url-shortener/src/config"
