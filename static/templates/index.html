@@ -1,4 +1,38 @@
-{{template "layout.html" .}}
-{{define "content"}}
-  <div></div>
-{{end}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>URL Shortener</title>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+
+    <div class="center-content">
+      <form action="/view" method="post">
+
+        <label for="url">URL:</label>
+        <input type="url" name="url" id="url" required placeholder="http://your.very/long/url">
+
+        <input type="submit" value="Shorten">
+          
+      </form>
+      <br>
+
+      <div class="result">
+        <p class="shortened-url">
+          Shortened URL 123: <a href="{{ .ShortenedUrl }}">{{ .ShortenedUrl }}</a>
+    
+          <button class="copy-button">
+            <span class="copy-icon">📋</span>
+            <span class="copy-subtitle">Copy to Clipboard</span>
+          </button>
+        </p>
+      </div>
+      
+      <script src="/scripts/main.js"></script>
+    </div>
+</body>
+</html>
