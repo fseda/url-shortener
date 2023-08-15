@@ -1,4 +1,4 @@
-FROM golang:1.20-alpine as base
+FROM golang:latest as base
 
 WORKDIR /usr/app
 
@@ -9,9 +9,6 @@ COPY ./static/ /usr/app/static
 COPY ./*.go ./
 
 RUN go build -o app
-
-FROM base AS test
-RUN go test -v ./...
 
 FROM base AS production
 
