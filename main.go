@@ -23,7 +23,8 @@ func main() {
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("static/styles/"))))
 	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("static/scripts/"))))
 
-	port, _ := config.Config("PORT")
+	// port, _ := config.Config("PORT")
+	port := "8080"
 
 	fmt.Println("Listening on port " + port + "... 🔥")
 	log.Fatal(http.ListenAndServe(":"+port, nil))
