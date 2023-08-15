@@ -63,7 +63,10 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/error", http.StatusSeeOther)
 	}
 
-	templates.RenderTemplate(w, "view", models.Url{ShortenedUrl: shortenedUrl})
+	templates.RenderTemplate(w, "view", models.Url{
+		OriginalUrl: url,
+		ShortenedUrl: shortenedUrl,
+	})
 }
 
 func MakeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {

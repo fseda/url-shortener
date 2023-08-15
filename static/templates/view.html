@@ -22,6 +22,10 @@
       </form>
       <br>
 
+      {{if .OriginalUrl}}
+      <p class="original-url">Original URL: {{ .OriginalUrl }}</p>
+      {{end}}
+
       {{if .ShortenedUrl}}
       <div class="result">
         <p class="shortened-url">
