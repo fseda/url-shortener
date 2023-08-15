@@ -28,7 +28,7 @@ func (us *UrlService) GetUrl(id int) (string, error) {
 	return url, nil
 }
 
-func (us *UrlService) SaveUrl(url string) (int64, error) {
+func (us *UrlService) saveUrl(url string) (int64, error) {
 	query := "INSERT INTO urls (url) VALUES (?)"
 	result, err := config.DB.Exec(query, url)
 	if err != nil {
@@ -43,22 +43,16 @@ func (us *UrlService) SaveUrl(url string) (int64, error) {
 	return id, nil
 }
 
-func (us *UrlService) UrlExists(url string) (bool, error) {
-	query := "SELECT * FROM urls WHERE url = ?"
-	result, err := config.DB.Exec(query, url)
-	if err != nil {
-		return false, err
-	}
+func (us *UrlService) urlExists(url string) bool {
+	query := "SELECT id FROM urls WHERE url = ?"
+	row := config.DB.QueryRow(query, url)
 
-	_, err = result.LastInsertId()
-	if err != nil {
-		return false, err
-	}
-
-	return true, nil
+	var id int
+	err := row.Scan(&id)
+	return err != sql.ErrNoRows
 }
 
-func (us *UrlService) GetUrlId(url string) (int64, error) {
+func (us *UrlService) getUrlId(url string) (int64, error) {
 	query := "SELECT * FROM urls WHERE url = ?"
 	result, err := config.DB.Exec(query, url)
 	if err != nil {
@@ -76,14 +70,14 @@ func (us *UrlService) GetUrlId(url string) (int64, error) {
 func (us *UrlService) ShortenUrl(url string, baseUrl string) (string, error) {
 	var id int64
 	var err error
-	
-	if urlExists, _ := us.UrlExists(url); urlExists {
-		id, err = us.GetUrlId(url)
+
+	if urlExists := us.urlExists(url); urlExists {
+		id, err = us.getUrlId(url)
 		if err != nil {
 			return "", err
 		}
 	} else {
-		id, err = us.SaveUrl(url)
+		id, err = us.saveUrl(url)
 		if err != nil {
 			return "", err
 		}
