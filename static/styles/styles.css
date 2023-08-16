@@ -9,7 +9,7 @@ body {
 @media (max-width: 600px) {
   /* Adjust font size for smaller screens */
   h1 {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   form {
@@ -18,30 +18,31 @@ body {
 
   /* Adjust padding and font size for smaller screens */
   input[type="url"] {
-    padding: 8px;
-    font-size: 14px;
+    padding: 12px;
+    font-size: 16px;
   }
 
   /* Adjust padding and font size for smaller screens */
   input[type="submit"] {
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 12px 20px;
+    font-size: 16px;
   }
 
   /* Adjust padding and font size for smaller screens */
   .shortened-url {
-    padding: 10px;
-    font-size: 14px;
+    padding: 15px;
+    font-size: 16px;
   }
 
   /* Adjust padding for smaller screens */
   .original-url {
-    margin-top: 5px;
+    margin-top: 8px;
+    font-size: 14px;
   }
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 48px;
   color: #333;
   margin-bottom: 20px;
   text-align: center;
@@ -52,28 +53,30 @@ form {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
-  padding: 20px;
-  max-width: 400px;
+  padding: 30px;
+  max-width: 500px;
   box-sizing: border-box;
 }
 
 label {
   font-weight: bold;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
 input[type="url"] {
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 3px;
-  margin-bottom: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
   box-sizing: border-box;
   transition: border-color 0.3s ease-in-out;
 
   outline: none;
   border-color: #ccc;
+  font-size: 18px;
 }
 
 input[type="url"]:focus {
@@ -85,9 +88,11 @@ input[type="submit"] {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 3px;
+  padding: 15px 30px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.3s;
 }
 
 input[type="submit"]:hover {
